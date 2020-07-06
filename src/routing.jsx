@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 import NavbarComponent from './component/Page/NavbarComponent'
 import { Layout, Col, Row } from 'antd'
 
@@ -22,16 +22,16 @@ const Pages = () =>
             </Content>
         </div>
     )
-    
+
 const Routing = () =>
     (
-        <Router>
-            <div>
+        // <Router>
+            <Switch>
                 <Route exact path='/main' component={MainPage} />
                 <Route path='/login' component={LoginPage} />
                 <Route path='/regit' component={RegiterPage} />
-            </div>
-        </Router>
+            </Switch>
+        // </Router>
     )
 
 

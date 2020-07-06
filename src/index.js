@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routing from './routing';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import 'antd/dist/antd.css';
 
 import { Provider } from 'react-redux'
@@ -11,7 +13,9 @@ import Reducer from './store/Reducer'
 const store = createStore(Reducer, applyMiddleware(logger))
 const App = () => (
   <Provider store={store}>
-    <Routing />
+    <Router>
+      <Routing />
+    </Router>
   </Provider>
 )
 

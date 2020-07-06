@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Menu } from 'antd'
-
+import { Link, withRouter } from 'react-router-dom'
 const { SubMenu } = Menu
 const mapStateToProps = (state) => {
     return {
@@ -12,17 +12,22 @@ class NavbarComponent extends React.Component {
 
     MenuRouter = (e) => {
         let part = e.key
-        window.location.href = part
+        //  window.location.href = part
     }
 
     render() {
         return (
             <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >
+
                 <Menu.Item key="/main" >
-                    หน้าหลัก
+                    <Link to='/main'>
+                        {"หน้าหลัก"}
+                    </Link>
                 </Menu.Item>
+
                 <SubMenu title="บันทึกข้อมูล">
                     <Menu.ItemGroup >
+                        
                         <Menu.Item key="/animal_regit">ลงทะเบียนสัตว์ป่า</Menu.Item>
                         <Menu.Item key="/animal_survey">บันทึกการพบเจอสัตว์ป่า</Menu.Item>
                     </Menu.ItemGroup>
@@ -35,4 +40,4 @@ class NavbarComponent extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(NavbarComponent)
+export default withRouter(connect(mapStateToProps)(NavbarComponent))
