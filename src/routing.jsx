@@ -1,15 +1,15 @@
 import React from 'react'
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import NavbarComponent from './component/Page/NavbarComponent'
-import { Layout, Col, Row } from 'antd'
+import { Layout, Col } from 'antd'
 
 import MainPage from './page/MainPage'
 import LoginPage from './page/LoginPage'
 import RegiterPage from './page/RegiterPage'
 
 const { Header, Content, Footer } = Layout;
-const Pages = () =>
-    (
+const Pages = () => {
+    return (
         <div>
             <Header style={{ backgroundColor: '#fff' }}>
                 <NavbarComponent />
@@ -22,16 +22,15 @@ const Pages = () =>
             </Content>
         </div>
     )
+}
 
 const Routing = () =>
     (
-        // <Router>
-            <Switch>
-                <Route exact path='/main' component={MainPage} />
-                <Route path='/login' component={LoginPage} />
-                <Route path='/regit' component={RegiterPage} />
-            </Switch>
-        // </Router>
+        <Switch>
+            <Route exact path='/main' component={MainPage} />
+            <Route path='/login' component={LoginPage} />
+            <Route path='/regit' component={RegiterPage} />
+        </Switch>
     )
 
 

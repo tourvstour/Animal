@@ -1,15 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Logo from '../../imges/elephen.png'
 import { Form, Input, Col, Card, Row } from 'antd'
+
 const mapStateToProps = (state) => {
     return {
         propsData: state
     }
 }
 const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 },
+    labelCol: { span: 8 }
 }
 class LoginComponent extends React.Component {
 
@@ -38,7 +39,7 @@ class LoginComponent extends React.Component {
                                 <Input />
                             </Form.Item>
                             <Form.Item label="REGITER">
-                                <a href="/regit" type="link">ลงทะเบียน</a>
+                                <Link to="/regit" type="link">{"ลงทะเบียน"}</Link>
                             </Form.Item>
                         </Form>
                     </Card>
