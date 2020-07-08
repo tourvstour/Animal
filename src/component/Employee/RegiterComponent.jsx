@@ -1,7 +1,8 @@
 import React from 'react'
-import { Form, Input, Row, Button, Select, DatePicker, Col, Card, Space } from 'antd'
+import { Form, Input, Row, Button, Select, DatePicker, Col, Space, message } from 'antd'
 import { EmployeeRegiterApi, EmployeePrefixApi } from '../../api/EmployeeApis'
-
+import local from 'antd/es/date-picker/locale/th_TH'
+import moment from 'moment'
 const { Option } = Select
 const layout = {
     labelCol: { span: 12 },
@@ -26,7 +27,7 @@ const config = {
 }
 
 class RegiterComponent extends React.Component {
-    formRef = React.createRef();
+
     constructor() {
         super()
         this.state = {
@@ -47,8 +48,19 @@ class RegiterComponent extends React.Component {
             ...e,
             'birthDay': e['birthDay'].format('YYYY-MM-DD')
         }
-        let resulutRegiter = await EmployeeRegiterApi(values)
-        console.log(resulutRegiter)
+        if (values.cid.length !== 13) {
+            message.warning('เลขประจำตัวประชาชนไม่ถูกต้อง')
+        } else if (values.passWord !== values.confirmPassWord) {
+            message.warning('Password ไม่ตรงกัน')
+        } else {
+            let resulutRegiter = await EmployeeRegiterApi(values)
+            console.log(resulutRegiter)
+            if (resulutRegiter.result === "_bt_check_unique") {
+                message.error(resulutRegiter.res.message)
+            } else {
+                message.success(resulutRegiter.res.message)
+            }
+        }
     }
 
     onReset = (e) => {
@@ -103,7 +115,7 @@ class RegiterComponent extends React.Component {
                             {...config}
                         >
                             <DatePicker
-
+                                locale={local}
                             />
                         </Form.Item>
                         <Form.Item
@@ -132,9 +144,15 @@ class RegiterComponent extends React.Component {
                             name="passWord"
                             rules={[{ required: true, message: 'Please input your passWord!' }]}
                         >
-                            <Input />
+                            <Input.Password />
                         </Form.Item>
-
+                        <Form.Item
+                            label="CONFIRM PASSWORD"
+                            name="confirmPassWord"
+                            rules={[{ required: true, message: 'Please input your passWord!' }]}
+                        >
+                            <Input.Password />
+                        </Form.Item>
                         <Form.Item {...tailLayout} >
                             <Space>
                                 <Button type="primary" htmlType="submit">

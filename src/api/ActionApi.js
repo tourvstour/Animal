@@ -1,5 +1,4 @@
-exports.ActionApi = (url, data) => {
-   
+const ActionApi = (url, data) => {
     return fetch(url, {
         method: 'post',
         headers: {
@@ -16,3 +15,5 @@ exports.ActionApi = (url, data) => {
             throw err
         })
 }
+
+export { ActionApi }

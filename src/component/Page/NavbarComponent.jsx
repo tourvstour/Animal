@@ -15,6 +15,9 @@ class NavbarComponent extends React.Component {
         //  window.location.href = part
     }
 
+    componentWillReceiveProps(){
+        console.log(this.props)
+    }
    
     render() {
         return (

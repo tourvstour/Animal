@@ -2,20 +2,33 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Logo from '../../imges/elephen.png'
-import { Form, Input, Col, Card, Row, Button } from 'antd'
-import { useCookies } from 'react-cookie';
+import { Form, Input, Col, Card, Row, Button, message } from 'antd'
+import { EmployeeLogin } from '../../api/EmployeeApis'
+import { useCookies } from 'react-cookie'
+
 const mapStateToProps = (state) => {
     return {
         propsData: state
     }
 }
+
 const layout = {
     labelCol: { span: 8 }
 }
 class LoginComponent extends React.Component {
 
-    onFinish = (e) => {
-        console.log(e)
+    onFinish = async (e) => {
+        let login = await EmployeeLogin(e)
+        console.log(login.res)
+        if (login.res.code === "200") {
+            message.success(login.res.message)
+            this.props.dispatch({
+                type: 'login',
+                data: login
+            })
+        } else {
+            message.error(login.res.message)
+        }
     }
 
     render() {
@@ -33,12 +46,14 @@ class LoginComponent extends React.Component {
                         <Form.Item
                             label="USER NAME"
                             name="user"
+                            rules={[{ required: true, message: 'Please input your USER NAME!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="PASSWORD"
                             name="password"
+                            rules={[{ required: true, message: 'Please input your PASSWORD!' }]}
                         >
                             <Input.Password />
                         </Form.Item>
