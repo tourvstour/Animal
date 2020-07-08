@@ -1,4 +1,6 @@
 const storeList = {
+    pageAtion: [],
+    pageEditid: [],
     user: undefined
 }
 

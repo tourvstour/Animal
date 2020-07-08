@@ -19,7 +19,6 @@ class NavbarComponent extends React.Component {
     render() {
         return (
             <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >
-
                 <Menu.Item key="/main" >
                     <Link to='/main'>
                         {"หน้าหลัก"}

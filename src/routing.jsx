@@ -1,7 +1,9 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import NavbarComponent from './component/Page/NavbarComponent'
-import { Layout, Col } from 'antd'
+import { Layout, Col, Row } from 'antd'
+import lottieImg from './lottie/26093-loading-crazy-shapes.json'
+import Lottie from 'react-lottie'
 
 import MainPage from './page/MainPage'
 import LoginPage from './page/LoginPage'
@@ -16,9 +18,11 @@ const Pages = () => {
             </Header>
             <br />
             <Content style={{ backgroundColor: '#fff' }}>
-                <Col lg={{ span: 22, offset: 1 }}>
-                    <Routing />
-                </Col>
+                <Row justify={'space-around'}>
+                    <Col lg={{ span: 22}} >
+                        <Routing />
+                    </Col>
+                </Row>
             </Content>
         </div>
     )
