@@ -1,4 +1,4 @@
-import { ActionApi } from './ActionApi'
+import ActionApi from './ActionApi'
 import * as url from './UrlConstants'
 
 export const EmployeeRegiterApi = async (data) => {

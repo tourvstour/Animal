@@ -1,21 +1,20 @@
 const storeList = {
-    pageAtion: [],
-    pageEditid: [],
-    user: undefined,
-    loginData: Object
+    pageAtion: Array,
+    pageEditid: Array,
+    token: String,
+    user: String
 }
 
 const Reducer = (state = storeList, action) => {
     switch (action.type) {
         case 'login':
             return Object.assign({}, state, {
-                loginData: state.loginData = action.data
+                user: state.user = action.data.user[0],
+                token: state.token = action.data.token[0].login_token_number
             })
-            break;
 
         default:
             return state
-            break;
     }
 }
 

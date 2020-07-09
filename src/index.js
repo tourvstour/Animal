@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routing from './routing';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router ,useHistory} from 'react-router-dom';
 import 'moment/locale/th'
 import 'antd/dist/antd.css';
 
@@ -11,6 +11,7 @@ import logger from 'redux-logger'
 import Reducer from './store/Reducer'
 
 const store = createStore(Reducer, applyMiddleware(logger))
+
 const App = () => (
   <Provider store={store}>
     <Router>
@@ -19,9 +20,6 @@ const App = () => (
   </Provider>
 )
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+ReactDOM.render(<App />,
   document.getElementById('root')
 )

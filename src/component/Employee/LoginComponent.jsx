@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import Logo from '../../imges/elephen.png'
 import { Form, Input, Col, Card, Row, Button, message } from 'antd'
 import { EmployeeLogin } from '../../api/EmployeeApis'
-import { useCookies } from 'react-cookie'
-
+import { Cookies, withCookies } from 'react-cookie'
 const mapStateToProps = (state) => {
     return {
         propsData: state
@@ -18,14 +17,18 @@ const layout = {
 class LoginComponent extends React.Component {
 
     onFinish = async (e) => {
-        let login = await EmployeeLogin(e)
-        console.log(login.res)
+        let login = await EmployeeLogin(e),
+            { cookies } = this.props
+
         if (login.res.code === "200") {
             message.success(login.res.message)
-            this.props.dispatch({
-                type: 'login',
-                data: login
-            })
+                .then(() => {
+                    cookies.set('token_cookie', login.token[0].login_token_number, { path: '/' })
+                    this.props.dispatch({
+                        type: 'login',
+                        data: login
+                    })
+                })
         } else {
             message.error(login.res.message)
         }
@@ -76,4 +79,4 @@ class LoginComponent extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(LoginComponent)
+export default withCookies(connect(mapStateToProps)(LoginComponent))

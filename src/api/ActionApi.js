@@ -16,4 +16,4 @@ const ActionApi = (url, data) => {
         })
 }
 
-export { ActionApi }
+export default ActionApi 

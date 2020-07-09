@@ -13,13 +13,11 @@ const { Header, Content, Footer } = Layout;
 const Pages = () => {
     return (
         <div>
-            <Header style={{ backgroundColor: '#fff' }}>
-                <NavbarComponent />
-            </Header>
+            <NavbarComponent />
             <br />
             <Content style={{ backgroundColor: '#fff' }}>
                 <Row justify={'space-around'}>
-                    <Col lg={{ span: 22}} >
+                    <Col lg={{ span: 22 }} >
                         <Routing />
                     </Col>
                 </Row>
