@@ -1,6 +1,6 @@
 import ActionApi from './ActionApi'
 import * as url from './UrlConstants'
 
-export const loginStatus = async (token) => {
+export const LoginStatus = async (token) => {
     return await ActionApi(url.urlCheckLogin, token)
 }

@@ -1,8 +1,8 @@
 const storeList = {
-    pageAtion: Array,
-    pageEditid: Array,
-    token: String,
-    user: String
+    pageAtion: [],
+    pageEditid: [],
+    token: "",
+    user: ""
 }
 
 const Reducer = (state = storeList, action) => {

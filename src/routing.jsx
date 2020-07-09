@@ -2,16 +2,17 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import NavbarComponent from './component/Page/NavbarComponent'
 import { Layout, Col, Row } from 'antd'
-import lottieImg from './lottie/26093-loading-crazy-shapes.json'
-import Lottie from 'react-lottie'
+
 
 import MainPage from './page/MainPage'
 import LoginPage from './page/LoginPage'
 import RegiterPage from './page/RegiterPage'
 
+
 const { Header, Content, Footer } = Layout;
-const Pages = () => {
-    return (
+
+const Pages = () =>
+    (
         <div>
             <NavbarComponent />
             <br />
@@ -24,7 +25,7 @@ const Pages = () => {
             </Content>
         </div>
     )
-}
+
 
 const Routing = () =>
     (
@@ -34,6 +35,7 @@ const Routing = () =>
             <Route path='/regit' component={RegiterPage} />
         </Switch>
     )
+
 
 
 export default Pages
