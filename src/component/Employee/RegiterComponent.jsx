@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Row, Button, Select, DatePicker, Col, Space, message } from 'antd'
 import { EmployeeRegiterApi, EmployeePrefixApi } from '../../api/EmployeeApis'
 import local from 'antd/es/date-picker/locale/th_TH'
-import moment from 'moment'
+
 const { Option } = Select
 const layout = {
     labelCol: { span: 12 },

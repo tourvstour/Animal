@@ -1,8 +1,11 @@
 import React from 'react'
 import CheckLoginComponent from '../CheckLogin/CheckLoginComponent'
+import { LoginStatus } from '../../api/CheckLoginApis'
 import { connect } from 'react-redux'
-import { Menu, Layout, Modal } from 'antd'
+import { Menu, Layout } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
+import { withCookies } from 'react-cookie'
+import { Redirect } from 'react-router-dom'
 
 const { Header } = Layout
 const { SubMenu } = Menu
@@ -15,7 +18,8 @@ class NavbarComponent extends React.Component {
     constructor() {
         super()
         this.state = {
-            key: ''
+            key: '',
+            redirect: false
         }
     }
     MenuRouter = (e) => {
@@ -23,18 +27,62 @@ class NavbarComponent extends React.Component {
         this.setState({
             key: part
         })
+
+        const { cookies } = this.props
+        let token = cookies.cookies.token_cookie
+
+        const checkFuntion = async () => {
+            if (token === undefined) {
+                this.setState({
+                    redirect: true
+                })
+            } else {
+                let loginStatus = await LoginStatus({ token }),
+                    tokenStat = loginStatus.user[0].expri_stat
+                if (tokenStat === true) {
+                    cookies.remove('token_cookie', { path: '/' })
+                    cookies.remove('userName', { path: '/' })
+
+                } else {
+                    this.props.dispatch({
+                        'type': 'userLogin',
+                        'data': loginStatus.user[0]
+                    })
+
+                }
+            }
+        }
+        if (window.location.pathname !== '/regit') {
+            checkFuntion()
+        }
     }
 
+
     render() {
+        const redirect = this.state.redirect
+        if (redirect) {
+            this.setState({
+                redirect: false
+            })
+            return (<Redirect to='/login' />)
+        }
+
+        let menuLogin = (this.props.propsData.user == undefined) ?
+            <Link to="/login">
+                {"เข้าสู่ระบบ"}
+            </Link>
+            :
+            <Link to="/login">
+                {this.props.propsData.user.employee_prefix_description + ' ' + this.props.propsData.user.employee_fname + ' ' + this.props.propsData.user.employee_lname}
+            </Link>
+
+
         return (
             <Header style={{ backgroundColor: '#fff' }}>
                 <div style={{
-                    width: '120px',
-                    height: '31px',
-                    background: 'rgba(255, 255, 255, 0.2)',
                     float: 'right'
                 }}>
-                    <CheckLoginComponent nameProps={this.state.key} />
+
                 </div>
                 <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >
                     <Menu.Item key="/main" >
@@ -52,10 +100,8 @@ class NavbarComponent extends React.Component {
                             </Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
-                    <Menu.Item key="/login" >
-                        <Link to="/login">
-                            {"เข้าสู่ระบบ"}
-                        </Link>
+                    <Menu.Item key="/login" style={{float:'right'}}>
+                        {menuLogin}
                     </Menu.Item>
                 </Menu>
 
@@ -64,4 +110,4 @@ class NavbarComponent extends React.Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(NavbarComponent))
+export default withRouter(withCookies(connect(mapStateToProps)(NavbarComponent)))

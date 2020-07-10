@@ -1,16 +1,19 @@
 const storeList = {
     pageAtion: [],
     pageEditid: [],
-    token: "",
-    user: ""
+    user: undefined
 }
 
 const Reducer = (state = storeList, action) => {
     switch (action.type) {
-        case 'login':
+        case 'userLogin':
             return Object.assign({}, state, {
-                user: state.user = action.data.user[0],
-                token: state.token = action.data.token[0].login_token_number
+                user: state.user = action.data,
+            })
+
+        case 'logout':
+            return Object.assign({}, state, {
+                user: state.user = undefined,
             })
 
         default:
