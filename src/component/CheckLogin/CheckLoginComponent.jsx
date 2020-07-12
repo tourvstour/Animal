@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withCookies } from 'react-cookie'
-import { Modal } from 'antd'
 import { Redirect } from 'react-router-dom'
 import { LoginStatus } from '../../api/CheckLoginApis'
 
@@ -9,12 +8,6 @@ const mapStateToProps = (state) => {
     return {
         propsData: state
     }
-}
-const warning = () => {
-    Modal.warning({
-        title: 'Loging',
-        content: 'เข้าสู่ะบบก่อนใช้งาน',
-    })
 }
 
 class CheckLoginComponent extends React.Component {

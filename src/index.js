@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routing from './routing';
-import { BrowserRouter as Router ,useHistory} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import 'moment/locale/th'
 import 'antd/dist/antd.css';
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import CheckLoginComponent from '../CheckLogin/CheckLoginComponent'
 import { LoginStatus } from '../../api/CheckLoginApis'
 import { connect } from 'react-redux'
 import { Menu, Layout } from 'antd'
@@ -22,6 +21,36 @@ class NavbarComponent extends React.Component {
             redirect: false
         }
     }
+
+    componentDidMount() {
+        const { cookies } = this.props
+        const token = cookies.cookies.token_cookie
+        const checkFuntion = async () => {
+            if (token === undefined) {
+                this.setState({
+                    redirect: true
+                })
+            } else {
+                let loginStatus = await LoginStatus({ token }),
+                    tokenStat = loginStatus.user[0].expri_stat
+                if (tokenStat === true) {
+                    cookies.remove('token_cookie', { path: '/' })
+                    cookies.remove('userName', { path: '/' })
+
+                } else {
+                    this.props.dispatch({
+                        'type': 'userLogin',
+                        'data': loginStatus.user[0]
+                    })
+
+                }
+            }
+        }
+        if (window.location.pathname !== '/regit') {
+            checkFuntion()
+        }
+    }
+
     MenuRouter = (e) => {
         let part = e.key
         this.setState({
@@ -29,7 +58,7 @@ class NavbarComponent extends React.Component {
         })
 
         const { cookies } = this.props
-        let token = cookies.cookies.token_cookie
+        const token = cookies.cookies.token_cookie
 
         const checkFuntion = async () => {
             if (token === undefined) {
@@ -57,7 +86,6 @@ class NavbarComponent extends React.Component {
         }
     }
 
-
     render() {
         const redirect = this.state.redirect
         if (redirect) {
@@ -66,16 +94,15 @@ class NavbarComponent extends React.Component {
             })
             return (<Redirect to='/login' />)
         }
-
-        let menuLogin = (this.props.propsData.user == undefined) ?
+        const user = this.props.propsData.user
+        let menuLogin = (user == undefined) ?
             <Link to="/login">
                 {"เข้าสู่ระบบ"}
             </Link>
             :
             <Link to="/login">
-                {this.props.propsData.user.employee_prefix_description + ' ' + this.props.propsData.user.employee_fname + ' ' + this.props.propsData.user.employee_lname}
+                {user.employee_prefix_description + ' ' + user.employee_fname + ' ' + user.employee_lname}
             </Link>
-
 
         return (
             <Header style={{ backgroundColor: '#fff' }}>
@@ -100,7 +127,7 @@ class NavbarComponent extends React.Component {
                             </Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
-                    <Menu.Item key="/login" style={{float:'right'}}>
+                    <Menu.Item key="/login" style={{ float: 'right' }}>
                         {menuLogin}
                     </Menu.Item>
                 </Menu>

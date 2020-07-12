@@ -1,8 +1,7 @@
 import React from 'react'
-import { Switch, Route, Router } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import NavbarComponent from './component/Page/NavbarComponent'
 import { Layout, Col, Row } from 'antd'
-
 
 import MainPage from './page/MainPage'
 import LoginPage from './page/LoginPage'
