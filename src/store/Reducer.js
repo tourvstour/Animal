@@ -1,6 +1,7 @@
 const storeList = {
     pageAtion: [],
     pageEditid: [],
+    animalData: [],
     user: undefined
 }
 

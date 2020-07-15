@@ -5,6 +5,7 @@ import { Menu, Layout } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
 import { Redirect } from 'react-router-dom'
+import Logo from '../../imges/logo.png'
 
 const { Header } = Layout
 const { SubMenu } = Menu
@@ -105,38 +106,44 @@ class NavbarComponent extends React.Component {
             </Link>
 
         return (
-            <Header style={{ backgroundColor: '#fff' }}>
-                <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >
-                    <Menu.Item key="/main" >
-                        <Link to='/main'>
-                            {"หน้าหลัก"}
-                        </Link>
-                    </Menu.Item>
-                    <SubMenu title="บันทึกข้อมูล">
-                        <Menu.ItemGroup >
-                            <Menu.Item key="/animal_regit">
-                                <Link to="/animal_regit">{'ลงทะเบียนสัตว์ป่า'}</Link>
-                            </Menu.Item>
-                            <Menu.Item key="/animal_survey">
-                                <Link to="/animal_survey">{'บันทึกการพบเจอสัตว์ป่า'}</Link>
-                            </Menu.Item>
-                        </Menu.ItemGroup>
-                    </SubMenu>
-                    <SubMenu title="ระบบรายงาน">
-                        <Menu.ItemGroup >
-                            <Menu.Item key="/animal_registration">
-                                <Link to="/animal_registration">{'ทะเบียนสัตว์ป่า'}</Link>
-                            </Menu.Item>
-                            <Menu.Item key="/animal_survey_report">
-                                <Link to="/animal_survey_report">{'บันทึกการพบเจอสัตว์ป่า'}</Link>
-                            </Menu.Item>
-                        </Menu.ItemGroup>
-                    </SubMenu>
-                    <Menu.Item key="/login" style={{ float: 'right' }}>
-                        {menuLogin}
-                    </Menu.Item>
-                </Menu>
-            </Header>
+            <div>
+                <div style={{textAlign:'center'}}>
+                    <img src={Logo} style={{ width: '40%' }} />
+                </div>
+
+                <Header style={{ backgroundColor: '#fff' }}>
+                    <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >
+                        <Menu.Item key="/main" >
+                            <Link to='/main'>
+                                {"หน้าหลัก"}
+                            </Link>
+                        </Menu.Item>
+                        <SubMenu title="บันทึกข้อมูล">
+                            <Menu.ItemGroup >
+                                <Menu.Item key="/animal_regit">
+                                    <Link to="/animal_regit">{'ลงทะเบียนสัตว์ป่า'}</Link>
+                                </Menu.Item>
+                                <Menu.Item key="/animal_survey">
+                                    <Link to="/animal_survey">{'บันทึกการพบเจอสัตว์ป่า'}</Link>
+                                </Menu.Item>
+                            </Menu.ItemGroup>
+                        </SubMenu>
+                        <SubMenu title="ระบบรายงาน">
+                            <Menu.ItemGroup >
+                                <Menu.Item key="/animal_registration">
+                                    <Link to="/animal_registration">{'ทะเบียนสัตว์ป่า'}</Link>
+                                </Menu.Item>
+                                <Menu.Item key="/animal_survey_report">
+                                    <Link to="/animal_survey_report">{'บันทึกการพบเจอสัตว์ป่า'}</Link>
+                                </Menu.Item>
+                            </Menu.ItemGroup>
+                        </SubMenu>
+                        <Menu.Item key="/login" style={{float:'right'}}>
+                            {menuLogin}
+                        </Menu.Item>
+                    </Menu>
+                </Header>
+            </div>
         )
     }
 }

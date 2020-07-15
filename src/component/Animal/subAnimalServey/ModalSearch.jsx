@@ -1,12 +1,20 @@
 import React from 'react'
-import { Modal, Button, Form, Input, Card, List } from 'antd'
+import { Modal, Button, Form, Input, Card, List, Row, Col, Avatar } from 'antd'
+import { AnimalData } from '../../../api/AnimalApis'
+import { connect } from 'react-redux'
+const mapStateToProps = state => {
+    return {
+        dataProps: state
+    }
+}
 
 class ModalSearch extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            ModalVisibel: true
+            ModalVisibel: true,
+            searthFromApi: []
         }
     }
 
@@ -15,13 +23,23 @@ class ModalSearch extends React.Component {
     }
 
     onSubmit = async (e) => {
-        let varlue = { ...e,'tour':'555' }
+        let varlue = { ...e }
 
-        if(varlue.lName===undefined){
-            varlue.lName = ' '
+        if (varlue.id === undefined || varlue.id === "") {
+            varlue.id = " "
+        }
+        if (varlue.fName === undefined || varlue.fName === "") {
+            varlue.fName = " "
+        }
+        if (varlue.lName === undefined || varlue.lName == "") {
+            varlue.lName = " "
         }
 
-        console.log(varlue)
+        let dataRes = await AnimalData(varlue)
+
+        this.setState({
+            searthFromApi: dataRes.result
+        })
     }
 
     render() {
@@ -39,7 +57,7 @@ class ModalSearch extends React.Component {
                 >
                     <Card>
                         <Form
-                            labelCol={{ sm: { span: 8 }, lg: { span: 3 } }}
+                            labelCol={{ sm: { span: 3 }, lg: { span: 3 } }}
                             onFinish={this.onSubmit}
                         >
                             <Form.Item
@@ -61,13 +79,30 @@ class ModalSearch extends React.Component {
                                 <Input />
                             </Form.Item>
                             <Form.Item
-                                wrapperCol={{ lg: { span: 8, offset: 3 }, md: { span: 24, offset: 8 } }}
+                                wrapperCol={{ lg: { span: 8, offset: 3 }, md: { span: 24, offset: 10 } }}
                             >
                                 <Button htmlType="submit">ค้นหา</Button>
                             </Form.Item>
                         </Form>
                         <hr />
-                        <List>
-
-                        </List>
+                        <List
+                            dataSource={this.state.searthFromApi}
+                            renderItem={item => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                        title={` ${item.animal_fname} ${item.animal_lname }`}
+                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                    />
+                                
+                                </List.Item>
+                            )}
+                        />
                     </Card>
+                </Modal>
+            </div >
+        )
+    }
+}
+
+export default connect(mapStateToProps)(ModalSearch)

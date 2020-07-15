@@ -23,7 +23,7 @@ class AnimalServeyComponent extends React.Component {
             <div>
                 <Card style={{ height: '80vh' }}>
                     <ModalSearch />
-                    <Tabs defaultActiveKey="1" >
+                    <Tabs defaultActiveKey="1" type="card">
                         <TabPane tab={<div style={{ ...fornt }}>{"1."}<Icon.ReconciliationOutlined />{"ข้อมูล"}</div>} key="1">
                             {'Content of Tab Pane 1'}
                         </TabPane>

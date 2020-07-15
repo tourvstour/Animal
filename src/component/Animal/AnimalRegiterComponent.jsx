@@ -111,8 +111,10 @@ class AnimalRegiterComponent extends React.Component {
                         </Select>
                     </Form.Item>
                     <Form.Item
-                        wrapperCol={{ lg: { span: 8, offset: 2 }, 	md: { span: 24 ,offset: 8} }}
-
+                        wrapperCol={{
+                            lg: { span: 8, offset: 2 },
+                            md: { span: 24, offset: 8 }
+                        }}
                     >
                         <Button
                             htmlType="submit"
