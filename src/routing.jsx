@@ -11,7 +11,7 @@ import AnimalRegiterPage from './page/AnimalRegiterPage'
 import AnimalServeyPage from './page/AnimalServeyPage'
 
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const Pages = () =>
     (

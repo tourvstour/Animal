@@ -8,7 +8,7 @@ exports.urlCheckLogin = Domain + '/employee_token_check'
 
 //animal
 exports.urlAnimalDataRegit = Domain + '/animal_regit_data'
-exports.urlAnimalData = Domain + '/animal_data'
+exports.urlAnimalData = Domain + '/animal_data_search'
 exports.urlAnimalRegit = Domain + '/animal_regiter'
-
+exports.urlAnimalDataService = Domain + '/animal_data_service'
 //

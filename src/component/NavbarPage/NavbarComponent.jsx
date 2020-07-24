@@ -5,7 +5,6 @@ import { Menu, Layout } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
 import { Redirect } from 'react-router-dom'
-import Logo from '../../imges/logo.png'
 
 const { Header } = Layout
 const { SubMenu } = Menu
@@ -96,7 +95,7 @@ class NavbarComponent extends React.Component {
             return (<Redirect to='/login' />)
         }
         const user = this.props.propsData.user
-        let menuLogin = (user == undefined) ?
+        let menuLogin = (user === undefined) ?
             <Link to="/login">
                 {"เข้าสู่ระบบ"}
             </Link>
@@ -107,9 +106,9 @@ class NavbarComponent extends React.Component {
 
         return (
             <div>
-                <div style={{textAlign:'center'}}>
+                {/* <div style={{textAlign:'center'}}>
                     <img src={Logo} style={{ width: '40%' }} />
-                </div>
+                </div> */}
 
                 <Header style={{ backgroundColor: '#fff' }}>
                     <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >

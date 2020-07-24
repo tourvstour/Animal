@@ -2,6 +2,7 @@ const storeList = {
     pageAtion: [],
     pageEditid: [],
     animalData: [],
+    serviceList: [],
     user: undefined
 }
 
@@ -15,6 +16,16 @@ const Reducer = (state = storeList, action) => {
         case 'logout':
             return Object.assign({}, state, {
                 user: state.user = undefined,
+            })
+
+        case 'animalData':
+            return Object.assign({}, state, {
+                animalData: state.animalData = [action.data]
+            })
+
+        case 'serviceList':
+            return Object.assign({}, state, {
+                serviceList: state.serviceList = action.data
             })
 
         default:

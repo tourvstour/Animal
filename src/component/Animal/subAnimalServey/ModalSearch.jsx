@@ -1,7 +1,8 @@
 import React from 'react'
-import { Modal, Button, Form, Input, Card, List, Row, Col, Avatar } from 'antd'
-import { AnimalData } from '../../../api/AnimalApis'
+import { Modal, Button, Form, Input, Table } from 'antd'
+import { AnimalDataSearch, AnimalDataService } from '../../../api/AnimalApis'
 import { connect } from 'react-redux'
+
 const mapStateToProps = state => {
     return {
         dataProps: state
@@ -13,8 +14,8 @@ class ModalSearch extends React.Component {
     constructor() {
         super()
         this.state = {
-            ModalVisibel: true,
-            searthFromApi: []
+            ModalVisibel: false,
+            searchFromApi: []
         }
     }
 
@@ -31,18 +32,77 @@ class ModalSearch extends React.Component {
         if (varlue.fName === undefined || varlue.fName === "") {
             varlue.fName = " "
         }
-        if (varlue.lName === undefined || varlue.lName == "") {
+        if (varlue.lName === undefined || varlue.lName === "") {
             varlue.lName = " "
         }
 
-        let dataRes = await AnimalData(varlue)
+        let dataRes = await AnimalDataSearch(varlue)
 
         this.setState({
-            searthFromApi: dataRes.result
+            searchFromApi: dataRes.result
+        })
+    }
+
+    Tables = async (e) => {
+        let id = e.animal_id,
+            resultService = await AnimalDataService({ id })
+        this.props.dispatch({
+            type: 'serviceList',
+            data: resultService,
+        })
+        this.props.dispatch({
+            type: 'animalData',
+            data: e
+        })
+        this.setState({
+            ModalVisibel: false
         })
     }
 
     render() {
+        const columnName = [
+            {
+                title: 'ID',
+                dataIndex: 'animal_id',
+                key: 'animal_id',
+                width: '10%'
+            },
+            {
+                title: 'ชื่อ',
+                dataIndex: 'animal_fname',
+                key: 'animal_id',
+                width: '15%',
+                render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
+            },
+            {
+                title: 'นามสกุล',
+                dataIndex: 'animal_lname',
+                key: 'animal_id',
+                width: '15%',
+                render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
+            },
+            {
+                title: 'ชื่อเล่น',
+                dataIndex: 'animal_nick_name',
+                key: 'animal_id',
+                width: '15%',
+                render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
+            },
+            {
+                title: 'วันเกิด',
+                dataIndex: 'animal_birthday',
+                key: 'animal_id',
+                width: '15%',
+                render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
+            },
+            {
+                title: 'อายุ',
+                dataIndex: 'animal_age',
+                key: 'animal_id',
+                width: '25%',
+                render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
+            }
+        ]
         return (
             <div>
                 <Button
@@ -55,50 +115,44 @@ class ModalSearch extends React.Component {
                     onCancel={() => this.setState({ ModalVisibel: false })}
                     footer={null}
                 >
-                    <Card>
-                        <Form
-                            labelCol={{ sm: { span: 3 }, lg: { span: 3 } }}
-                            onFinish={this.onSubmit}
+                    <Form
+                        labelCol={{ sm: { span: 3 }, lg: { span: 3 } }}
+                        onFinish={this.onSubmit}
+                    >
+                        <Form.Item
+                            name="id"
+                            label="รหัส"
                         >
-                            <Form.Item
-                                name="id"
-                                label="รหัส"
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
-                                name="fName"
-                                label="ชื่อจริง"
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
-                                label="ชื่อเล่น"
-                                name="lName"
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
-                                wrapperCol={{ lg: { span: 8, offset: 3 }, md: { span: 24, offset: 10 } }}
-                            >
-                                <Button htmlType="submit">ค้นหา</Button>
-                            </Form.Item>
-                        </Form>
-                        <hr />
-                        <List
-                            dataSource={this.state.searthFromApi}
-                            renderItem={item => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                        title={` ${item.animal_fname} ${item.animal_lname }`}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    />
-                                
-                                </List.Item>
-                            )}
-                        />
-                    </Card>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="fName"
+                            label="ชื่อจริง"
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="ชื่อเล่น"
+                            name="lName"
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            wrapperCol={{
+                                lg: { span: 8, offset: 3 },
+                                md: { span: 24, offset: 10 }
+                            }}
+                        >
+                            <Button htmlType="submit">ค้นหา</Button>
+                        </Form.Item>
+                    </Form>
+                    <hr />
+                    <Table
+                        dataSource={this.state.searchFromApi}
+                        columns={columnName}
+                        size="small"
+                        rowKey={'animal_id'}
+                    />
                 </Modal>
             </div >
         )

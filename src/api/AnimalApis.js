@@ -9,6 +9,10 @@ export const AnimalRegit = async (data) => {
     return ActionApi(url.urlAnimalRegit, data)
 }
 
-export const AnimalData = async (data) => {
+export const AnimalDataSearch = async (data) => {
     return ActionApi(url.urlAnimalData, data)
+}
+
+export const AnimalDataService = async (id) => {
+    return ActionApi(url.urlAnimalDataService, id)
 }
