@@ -11,4 +11,5 @@ exports.urlAnimalDataRegit = Domain + '/animal_regit_data'
 exports.urlAnimalData = Domain + '/animal_data_search'
 exports.urlAnimalRegit = Domain + '/animal_regiter'
 exports.urlAnimalDataService = Domain + '/animal_data_service'
+exports.uslAnimalDescover = Domain + '/animal_descover'
 //

@@ -103,6 +103,7 @@ class ModalSearch extends React.Component {
                 render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
             }
         ]
+        
         return (
             <div>
                 <Button

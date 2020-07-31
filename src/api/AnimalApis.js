@@ -16,3 +16,7 @@ export const AnimalDataSearch = async (data) => {
 export const AnimalDataService = async (id) => {
     return ActionApi(url.urlAnimalDataService, id)
 }
+
+export const AnimalDescover = async (data) => {
+    return ActionApi(url.uslAnimalDescover, data)
+}
