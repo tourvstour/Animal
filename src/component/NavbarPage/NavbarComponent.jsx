@@ -32,17 +32,27 @@ class NavbarComponent extends React.Component {
                 })
             } else {
                 let loginStatus = await LoginStatus({ token }),
-                    tokenStat = loginStatus.user[0].expri_stat
-                if (tokenStat === true) {
+                    tokenStat = loginStatus.user.map(a => a.expri_stat)
+                if (tokenStat !== "") {
+                    let tokenStat = loginStatus.user[0].expri_stat
+                    if (tokenStat === true) {
+                        cookies.remove('token_cookie', { path: '/' })
+                        cookies.remove('userName', { path: '/' })
+                        this.setState({
+                            redirect: true
+                        })
+                    } else {
+                        this.props.dispatch({
+                            'type': 'userLogin',
+                            'data': loginStatus.user[0]
+                        })
+                    }
+                } else {
                     cookies.remove('token_cookie', { path: '/' })
                     cookies.remove('userName', { path: '/' })
-
-                } else {
-                    this.props.dispatch({
-                        'type': 'userLogin',
-                        'data': loginStatus.user[0]
+                    this.setState({
+                        redirect: true
                     })
-
                 }
             }
         }
@@ -57,8 +67,8 @@ class NavbarComponent extends React.Component {
             key: part
         })
 
-        const { cookies } = this.props
-        const token = cookies.cookies.token_cookie
+        const { cookies } = this.props,
+            token = cookies.cookies.token_cookie
 
         const checkFuntion = async () => {
             if (token === undefined) {
@@ -95,7 +105,7 @@ class NavbarComponent extends React.Component {
             return (<Redirect to='/login' />)
         }
         const user = this.props.propsData.user
-        let menuLogin = (user === undefined) ?
+        const menuLogin = (user === undefined) ?
             <Link to="/login">
                 {"เข้าสู่ระบบ"}
             </Link>
@@ -106,11 +116,7 @@ class NavbarComponent extends React.Component {
 
         return (
             <div>
-                {/* <div style={{textAlign:'center'}}>
-                    <img src={Logo} style={{ width: '40%' }} />
-                </div> */}
-
-                <Header style={{ backgroundColor: '#fff' }}>
+                 <Header style={{ backgroundColor: '#fff' }}>
                     <Menu onClick={this.MenuRouter} mode="horizontal" theme="light" >
                         <Menu.Item key="/main" >
                             <Link to='/main'>
@@ -137,7 +143,7 @@ class NavbarComponent extends React.Component {
                                 </Menu.Item>
                             </Menu.ItemGroup>
                         </SubMenu>
-                        <Menu.Item key="/login" style={{float:'right'}}>
+                        <Menu.Item key="/login" style={{ float: 'right' }}>
                             {menuLogin}
                         </Menu.Item>
                     </Menu>
