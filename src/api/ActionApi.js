@@ -12,6 +12,7 @@ const ActionApi = (url, data) => {
             return res
         })
         .catch(err => {
+            console.log(err)
             throw err
         })
 }

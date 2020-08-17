@@ -1,6 +1,6 @@
 import React from 'react'
 import local from 'antd/es/date-picker/locale/th_TH'
-import moment, { now } from 'moment';
+import moment from 'moment';
 import { AnimalDataRegit, AnimalDescover } from '../../../api/AnimalApis'
 import { connect } from 'react-redux'
 import { Row, Col, Upload, Input, DatePicker, TimePicker, Select, Card, Switch, Skeleton, Form, Button, message } from 'antd'
@@ -29,7 +29,6 @@ class TabIdentity extends React.Component {
             dateSelect: '',
             timeSelect: '',
             injuryLevel: ''
-
         }
     }
 

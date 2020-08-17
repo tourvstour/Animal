@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import * as Icon from '@ant-design/icons'
 
 import TabIdentity from './subAnimalServey/TabIdentity'
+import TabHistory from './subAnimalServey/TabHistory'
 
-const mapStateToProps = state => {
+const mapPropsToState = state => {
     return {
         dataProps: state
     }
@@ -28,7 +29,7 @@ class AnimalServeyComponent extends React.Component {
                             <TabIdentity />
                         </TabPane>
                         <TabPane tab={<div style={{ ...fornt }}>{"2."}<Icon.CompassOutlined />{"ประวัติการพบเจอ"}</div>} key="2">
-                            {"  Content of Tab Pane 2"}
+                            <TabHistory />
                         </TabPane>
                     </Tabs>
                 </Card>
@@ -37,4 +38,4 @@ class AnimalServeyComponent extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(AnimalServeyComponent)
+export default connect(mapPropsToState)(AnimalServeyComponent)

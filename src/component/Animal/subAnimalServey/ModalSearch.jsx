@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Button, Form, Input, Table } from 'antd'
+import { Modal, Button, Form, Input, Table, message } from 'antd'
 import { AnimalDataSearch, AnimalDataService } from '../../../api/AnimalApis'
 import { connect } from 'react-redux'
 
@@ -36,11 +36,14 @@ class ModalSearch extends React.Component {
             varlue.lName = " "
         }
 
-        let dataRes = await AnimalDataSearch(varlue)
-
-        this.setState({
-            searchFromApi: dataRes.result
-        })
+        try {
+            let dataRes = await AnimalDataSearch(varlue)
+            this.setState({
+                searchFromApi: dataRes.result
+            })
+        } catch (err) {
+            message.error('Not Connect to Internet')
+        }
     }
 
     Tables = async (e) => {
@@ -103,7 +106,7 @@ class ModalSearch extends React.Component {
                 render: (text, animal_id) => <a onClick={() => this.Tables(animal_id)}>{text}</a>
             }
         ]
-        
+
         return (
             <div>
                 <Button
